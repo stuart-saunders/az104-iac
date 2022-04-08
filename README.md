@@ -1,1 +1,1 @@
-# azure-snippets
+# whizlabs
