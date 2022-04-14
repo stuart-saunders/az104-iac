@@ -5,4 +5,4 @@
 - Create a Storage Account
 - Create a Container
 - Upload a Blob object
-- View
+- View the Blob
