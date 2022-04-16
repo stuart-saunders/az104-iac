@@ -1,10 +1,10 @@
 resource "azurerm_resource_group" "this" {
   name     = "${var.resource_name_prefix}-rg"
-  location = "UK South"
+  location = var.location
 }
 
 resource "azurerm_storage_account" "this" {
-  name                     = "sswhizlabs1${formatdate("DDMMhhmm", timestamp())}"
+  name                     = "ssaz104whizlab1${formatdate("DDMMhhmm", timestamp())}"
   resource_group_name      = azurerm_resource_group.this.name
   location                 = azurerm_resource_group.this.location
   account_tier             = "Standard"
