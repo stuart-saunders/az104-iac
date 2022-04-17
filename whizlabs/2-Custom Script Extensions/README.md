@@ -103,3 +103,7 @@
 2.  You have successfully configured and created an Azure Linux virtual machine.
 3.  You have successfully installed nginx webserver using custom script extensions.
 4.  You have successfully opened port 80 and tested the created virtual machine.
+
+---
+### Notes:
+https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-linux
