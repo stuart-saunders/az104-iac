@@ -91,4 +91,5 @@
 
 ---
 ### Links
+- https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-windows
 - https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/network-watcher-windows
