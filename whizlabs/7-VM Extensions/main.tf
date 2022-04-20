@@ -13,6 +13,7 @@ module "win_vm" {
   resource_group_name   = azurerm_resource_group.this.name
 }
 
+//TODO: Review this
 resource "azurerm_virtual_machine_extension" "this" {
   name                 = "Network Watcher"
   virtual_machine_id   = module.win_vm.id
