@@ -41,7 +41,6 @@ resource "azurerm_virtual_machine_extension" "this" {
   type_handler_version = "1.10"
 
   # TODO: Refactor to something like... "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File ${var.script_filename}"
-  # Above doesn't work, so determine correct command...
   settings = <<SETTINGS
     {
       "fileUris": ["${azurerm_storage_blob.script.url}"]
