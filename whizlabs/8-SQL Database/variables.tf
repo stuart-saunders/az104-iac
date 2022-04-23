@@ -17,11 +17,6 @@ variable "db_administrator_login" {
   default = "db_admin"
 }
 
-# variable "db_administrator_password" {
-#   type = string
-#   description = "The administrator password for the server"
-# }
-
 //password
 variable "secret_length" {
   type        = number
