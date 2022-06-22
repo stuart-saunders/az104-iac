@@ -1,0 +1,4 @@
+---
+- name: Enable ICMP through Windows firewall
+  win_shell: |
+      New-NetFirewallRule -DisplayName "Allow ICMPv4-In" -Protocol ICMPv4

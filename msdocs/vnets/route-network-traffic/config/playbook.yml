@@ -1,0 +1,15 @@
+---
+- hosts: private
+  gather_facts: false
+  roles:
+    - icmp
+
+- hosts: public
+  gather_facts: false
+  roles:
+    - icmp
+
+- hosts: nvm
+  gather_facts: false
+  roles:
+    - ip-forwarding
