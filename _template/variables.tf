@@ -1,4 +1,4 @@
-variable "resource_name_prefix" {
+variable "prefix" {
   type        = string
   description = "The prefix to add to resource names"
   default     = "az104-whiz-labX"
