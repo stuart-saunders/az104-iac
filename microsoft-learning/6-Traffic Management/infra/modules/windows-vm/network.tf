@@ -3,6 +3,8 @@ resource "azurerm_network_interface" "this" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
+  enable_ip_forwarding = var.enable_ip_forwarding
+
   ip_configuration {
     name                          = var.ip_configuration_name
     subnet_id                     = var.subnet_id

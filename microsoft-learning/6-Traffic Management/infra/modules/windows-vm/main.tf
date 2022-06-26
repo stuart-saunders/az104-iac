@@ -33,4 +33,8 @@ resource "azurerm_windows_virtual_machine" "this" {
     sku       = var.source_image_sku
     version   = var.source_image_version
   }
+
+  depends_on = [
+    azurerm_network_interface.this
+  ]
 }

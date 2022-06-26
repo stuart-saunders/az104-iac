@@ -83,7 +83,7 @@ variable "special" {
 variable "override_special" {
   type        = string
   description = "Special override characters"
-  default     = "_%@"
+  default     = "!@#$%&*" #"_%@"
 }
 
 // NIC
@@ -101,6 +101,12 @@ variable "private_ip_address_allocation" {
     type = string
     description = "Private IP Address Allocation"
     default = "Dynamic"
+}
+
+variable "enable_ip_forwarding" {
+  type = bool
+  description = "Enable IP Forwarding"
+  default = false
 }
 
 //NSG
@@ -137,6 +143,17 @@ variable "nsg_rules" {
       protocol                   = "Tcp"
       source_port_range          = "*"
       destination_port_range     = "5986"
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    },
+    {
+      name                       = "http"
+      priority                   = 1002
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "80"
       source_address_prefix      = "*"
       destination_address_prefix = "*"
     }

@@ -1,0 +1,11 @@
+---
+- name: Enable Web Server Feature
+  win_feature:
+    name: Web-Server
+    state: present
+    include_management_tools: yes
+
+- name: Replace Default Page
+  win_shell: |
+    Remove-Item 'C:\\inetpub\\wwwroot\\iisstart.htm' 
+    Add-Content -Path 'C:\\inetpub\\wwwroot\\iisstart.htm' -Value $('Hello World from ' + $env:computername)

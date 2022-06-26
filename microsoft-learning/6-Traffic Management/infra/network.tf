@@ -34,8 +34,25 @@ resource "azurerm_virtual_network_peering" "second_to_first" {
   remote_virtual_network_id = azurerm_virtual_network.this[each.value.first].id
 }
 
-# resource "azurerm_network_watcher" "this" {
-#   name                = "${var.prefix}-nw-watcher"
-#   location            = azurerm_resource_group.rg1.location
-#   resource_group_name = azurerm_resource_group.rg1.name
-# }
+resource "azurerm_route_table" "this" {
+  for_each = var.route_table
+
+  name                          = each.key
+  location                      = azurerm_resource_group.rg1.location
+  resource_group_name           = azurerm_resource_group.rg1.name
+  disable_bgp_route_propagation = false
+
+  route {
+    name                   = each.value.route_name
+    address_prefix         = each.value.route_address_prefix
+    next_hop_type          = each.value.route_next_hop_type
+    next_hop_in_ip_address = each.value.route_next_hop_address
+  }
+}
+
+resource "azurerm_subnet_route_table_association" "this" {
+  for_each = var.route_table
+
+  subnet_id      = azurerm_subnet.this[each.value.subnet].id
+  route_table_id = azurerm_route_table.this[each.key].id
+}

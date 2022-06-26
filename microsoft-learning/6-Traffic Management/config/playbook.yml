@@ -1,0 +1,32 @@
+---
+- hosts: all
+  gather_facts: false
+  
+  roles:
+    - web-server
+
+  # tasks:
+  # - name: "Install PowerShell Module"
+  #   win_psmodule:
+  #     name: Az
+  #     state: present
+
+  # - name: Install Network Watcher
+  #   win_shell: |
+  #     $secStringPassword = ConvertTo-SecureString "{{ lookup('env', 'CLIENT_SECRET') }}" -AsPlainText -Force  
+  #     $credential = New-Object System.Management.Automation.PSCredential ("{{ lookup('env', 'CLIENT_ID') }}", $secStringPassword)
+  #     Connect-AzAccount -ServicePrincipal -TenantId {{ lookup('env'), 'TENANT_ID' }} -Credential $credential
+  #     Set-AzVMExtension `
+  #       -ResourceGroupName {{ resource_group }} `
+  #       -Location {{ location }} `
+  #       -VMName {{ vm_name }} `
+  #       -Name "networkWatcherAgent" `
+  #       -Publisher "Microsoft.Azure.NetworkWatcher" `
+  #       -Type "NetworkWatcherAgentWindows" `
+  #       -TypeHandlerVersion "1.4"
+
+- hosts: vm0
+  gather_facts: false
+
+  roles:
+    - router

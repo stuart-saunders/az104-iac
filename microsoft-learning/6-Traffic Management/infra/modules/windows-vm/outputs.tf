@@ -6,7 +6,7 @@ output "name" {
   value = azurerm_windows_virtual_machine.this.name
 }
 
-output "admin_user" {
+output "admin_username" {
   value = azurerm_windows_virtual_machine.this.admin_username
 }
 

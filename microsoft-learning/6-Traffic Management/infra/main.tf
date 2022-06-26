@@ -13,6 +13,7 @@ module "win_vm" {
   subnet_id             = azurerm_subnet.this[each.value.subnet_key].id
   location              = azurerm_resource_group.rg1.location
   resource_group_name   = azurerm_resource_group.rg1.name
+  enable_ip_forwarding  = lookup(each.value, "enable_ip_forwarding", null)
 }
 
 resource "azurerm_virtual_machine_extension" "winrm_listener" {

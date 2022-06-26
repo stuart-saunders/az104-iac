@@ -1,0 +1,25 @@
+---
+- name: Enable Remote Access Feature
+  win_feature:
+    name: RemoteAccess
+    state: present
+    include_management_tools: yes
+
+- name: Enable Routing Feature
+  win_feature:
+    name: Routing
+    state: present
+    include_management_tools: yes
+    include_sub_features: yes
+
+# - name: Remote Access
+#   win_shell: |
+#       Install-RemoteAccess -VpnType RoutingOnly
+#       Get-NetAdapter | Set-NetIPInterface -Forwarding Enabled
+
+- name: Enable forwarding on OS
+  win_shell: |
+      Install-RemoteAccess -VpnType RoutingOnly
+      Get-NetAdapter | Set-NetIPInterface -Forwarding Enabled
+      Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters -Name IpEnableRouter -Value 1
+      Restart-Computer

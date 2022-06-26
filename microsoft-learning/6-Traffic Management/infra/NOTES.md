@@ -14,4 +14,7 @@ Network Watcher
 - https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/network-watcher-linux
 
 Connect-Az
-https://docs.microsoft.com/en-us/powershell/module/az.accounts/Connect-AzAccount?view=azps-8.0.0
+- https://docs.microsoft.com/en-us/powershell/module/az.accounts/Connect-AzAccount?view=azps-8.0.0
+
+Powershell Module
+- https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-8.0.0

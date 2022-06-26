@@ -6,6 +6,12 @@ locals {
         }
     }
 
+    # subnet_address_spaces_by_vnet = { 
+    #   for key, value in var.subnets : 
+    #     value.vnet_name => value.address_space...
+    #   if value.subnet_name != "appgw"
+    # }
+
     # vnets = { for subnet_key, subnet_value in var.vnets.subnets :
     #     subnet_key => {
     #         address_space = subnet_value.address_space
@@ -97,4 +103,19 @@ locals {
     #         vnet                 = "vnet3"
     #     }
     # }
+
+    # vnet1_subnet_ips = [
+    #     for subnet_key, subnet_value in subnets : [
+    #         subnet_value.address_space
+    #     ]
+    #     # if subnet_value == 
+    # ]
+
+    backend_address_pool_name      = "${azurerm_virtual_network.this["vnet1"].name}-bepool"
+    frontend_port_name             = "${azurerm_virtual_network.this["vnet1"].name}-feport"
+    frontend_ip_configuration_name = "${azurerm_virtual_network.this["vnet1"].name}-feipconfig"
+    http_setting_name              = "${azurerm_virtual_network.this["vnet1"].name}-be-http"
+    listener_name                  = "${azurerm_virtual_network.this["vnet1"].name}-httplstn"
+    request_routing_rule_name      = "${azurerm_virtual_network.this["vnet1"].name}-reqrt"
+    # redirect_configuration_name    = "${azurerm_virtual_network.example.name}-rdrcfg"
 }
