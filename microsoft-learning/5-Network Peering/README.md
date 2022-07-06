@@ -25,7 +25,7 @@ In this task, you will deploy three virtual machines, each into a separate virtu
 3.  If prompted to select either **Bash** or **PowerShell**, select **PowerShell**.
 > **Note**: If this is the first time you are starting **Cloud Shell** and you are presented with the **You have no storage mounted** message, select the subscription you are using in this lab, and click **Create storage**.
 
-4.  In the toolbar of the Cloud Shell pane, click the **Upload/Download files** icon, in the drop-down menu, click **Upload** and upload the files **\Allfiles\Labs\05\az104-05-vnetvm-loop-template.json** and **\Allfiles\Labs\05\az104-05-vnetvm-loop-parameters.json** into the Cloud Shell home directory.
+4.  In the toolbar of the Cloud Shell pane, click the **Upload/Download files** icon, in the drop-down menu, click **Upload** and upload the files https://github.com/MicrosoftLearning/AZ-104-MicrosoftAzureAdministrator/tree/master/Allfiles/Labs/05/az104-05-vnetvm-loop-template.json and https://github.com/MicrosoftLearning/AZ-104-MicrosoftAzureAdministrator/tree/master/Allfiles/Labs/05/az104-05-vnetvm-loop-parameters.json into the Cloud Shell home directory.
 
 5.  Edit the **Parameters** file you just uploaded and change the password. If you need help editing the file in the Shell please ask your instructor for assistance. As a best practice, secrets, like passwords, should be more securely stored in the Key Vault.
 

@@ -46,37 +46,15 @@ In this task, you will create and configure Azure AD users.
     
 7.  Create a new user with the following settings (leave others with their defaults):
     
-    Setting
-    
-    Value
-    
-    User name
-    
-    **az104-01a-aaduser1**
-    
-    Name
-    
-    **az104-01a-aaduser1**
-    
-    Let me create the password
-    
-    enabled
-    
-    Initial password
-    
-    **Provide a secure password**
-    
-    Usage location
-    
-    **United States**
-    
-    Job title
-    
-    **Cloud Administrator**
-    
-    Department
-    
-    **IT**
+    | Setting | Value |
+    | --- | --- |
+    | User name | **az104-01a-aaduser1**
+    | Name | **az104-01a-aaduser1**
+    | Let me create the password | enabled
+    | Initial password | **Provide a secure password**
+    | Usage location | **United States**
+    | Job title Z **Cloud Administrator**
+    | Department Z **IT**
     
     > **Note**: **Copy to clipboard** the full **User Principal Name** (user name plus domain). You will need it later in this task.
     
@@ -102,40 +80,17 @@ In this task, you will create and configure Azure AD users.
     
 15.  Create a new user with the following settings (leave others with their defaults):
     
-    Setting
-    
-    Value
-    
-    User name
-    
-    **az104-01a-aaduser2**
-    
-    Name
-    
-    **az104-01a-aaduser2**
-    
-    Let me create the password
-    
-    enabled
-    
-    Initial password
-    
-    **Provide a secure password**
-    
-    Usage location
-    
-    **United States**
-    
-    Job title
-    
-    **System Administrator**
-    
-    Department
-    
-    **IT**
+    | Setting | Value |
+    | --- | --- |
+    | User name | **az104-01a-aaduser2** |
+    | Name | **az104-01a-aaduser2** |
+    | Let me create the password | enabled |
+    | Initial password | **Provide a secure password** |
+    | Usage location | **United States** |
+    | Job title | **System Administrator** |
+    | Department | **IT** |
     
 16.  Sign out as the az104-01a-aaduser1 user from the Azure portal and close the InPrivate browser window.
-    
 
 ### Task 2: Create Azure AD groups with assigned and dynamic membership
 
@@ -157,25 +112,12 @@ In this task, you will create Azure Active Directory groups with assigned and dy
     
 7.  Use the **+ New group** button to create a new group with the following settings:
     
-    Setting
-    
-    Value
-    
-    Group type
-    
-    **Security**
-    
-    Group name
-    
-    **IT Cloud Administrators**
-    
-    Group description
-    
-    **Contoso IT cloud administrators**
-    
-    Membership type
-    
-    **Dynamic User**
+    | Setting | Value |
+    | --- | --- |
+    | Group type | **Security** |
+    | Group name | **IT Cloud Administrators** |
+    | Group description | **Contoso IT cloud administrators** |
+    | Membership type | **Dynamic User** |
     
     > **Note**: If the **Membership type** drop-down list is grayed out, wait a few minutes and refresh the browser page.
     
@@ -183,89 +125,43 @@ In this task, you will create Azure Active Directory groups with assigned and dy
     
 9.  On the **Configure Rules** tab of the **Dynamic membership rules** blade, create a new rule with the following settings:
     
-    Setting
-    
-    Value
-    
-    Property
-    
-    **jobTitle**
-    
-    Operator
-    
-    **Equals**
-    
-    Value
-    
-    **Cloud Administrator**
+    | Setting | Value |
+    | --- | --- |
+    | Property | **jobTitle** |
+    | Operator | **Equals** |
+    | Value | **Cloud Administrator** |
     
 10.  Save the rule by clicking **+Add expression** and **Save**. Back on the **New Group** blade, click **Create**.
     
 11.  Back on the **Groups - All groups** blade of the Azure AD tenant, click the **+ New group** button and create a new group with the following settings:
     
-    Setting
-    
-    Value
-    
-    Group type
-    
-    **Security**
-    
-    Group name
-    
-    **IT System Administrators**
-    
-    Group description
-    
-    **Contoso IT system administrators**
-    
-    Membership type
-    
-    **Dynamic User**
+    | Setting | Value |
+    | --- | --- |
+    | Group type | **Security** |
+    | Group name | **IT System Administrators** |
+    | Group description | **Contoso IT system administrators** |
+    | Membership type | **Dynamic User** |
     
 12.  Click **Add dynamic query**.
     
 13.  On the **Configure Rules** tab of the **Dynamic membership rules** blade, create a new rule with the following settings:
     
-    Setting
-    
-    Value
-    
-    Property
-    
-    **jobTitle**
-    
-    Operator
-    
-    **Equals**
-    
-    Value
-    
-    **System Administrator**
+    | Setting Value |
+    | --- | --- |
+    | Property | **jobTitle** |
+    | Operator | **Equals** |
+    | Value | **System Administrator** |
     
 14.  Save the rule by clicking **+Add expression** and **Save**. Back on the **New Group** blade, click **Create**.
     
 15.  Back on the **Groups - All groups** blade of the Azure AD tenant, click the **+ New group** button, and create a new group with the following settings:
     
-    Setting
-    
-    Value
-    
-    Group type
-    
-    **Security**
-    
-    Group name
-    
-    **IT Lab Administrators**
-    
-    Group description
-    
-    **Contoso IT Lab administrators**
-    
-    Membership type
-    
-    **Assigned**
+    | Setting | Value |
+    | --- | --- |
+    | Group type | **Security** |
+    | Group name | **IT Lab Administrators** |
+    | Group description | **Contoso IT Lab administrators** |
+    | Membership type | **Assigned** |
     
 16.  Click **No members selected**.
     

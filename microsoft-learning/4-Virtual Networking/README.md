@@ -77,7 +77,7 @@ In this task, you will deploy Azure virtual machines into different subnets of t
 
 > **Note**: If this is the first time you are starting **Cloud Shell** and you are presented with the **You have no storage mounted** message, select the subscription you are using in this lab, and click **Create storage**.
 
-3.  In the toolbar of the Cloud Shell pane, click the **Upload/Download files** icon, in the drop-down menu, click **Upload** and upload the files **\Allfiles\Labs\04\az104-04-vms-loop-template.json** and **\Allfiles\Labs\04\az104-04-vms-loop-parameters.json** into the Cloud Shell home directory.
+3.  In the toolbar of the Cloud Shell pane, click the **Upload/Download files** icon, in the drop-down menu, click **Upload** and upload the files https://github.com/MicrosoftLearning/AZ-104-MicrosoftAzureAdministrator/tree/master/Allfiles/Labs/04/az104-04-vms-loop-template.json and https://github.com/MicrosoftLearning/AZ-104-MicrosoftAzureAdministrator/tree/master/Allfiles/Labs/04/az104-04-vms-loop-parameters.json into the Cloud Shell home directory.
 
 > **Note**: You might need to upload each file separately.
 

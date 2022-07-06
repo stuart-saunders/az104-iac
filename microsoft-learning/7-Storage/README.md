@@ -15,7 +15,7 @@ In this task, you will deploy an Azure virtual machine that you will use later i
 
    > **Note**: If this is the first time you are starting **Cloud Shell** and you are presented with the **You have no storage mounted** message, select the subscription you are using in this lab, and click **Create storage**.
  
-4.  In the toolbar of the Cloud Shell pane, click the **Upload/Download files** icon, in the drop-down menu, click **Upload** and upload the files **\Allfiles\Labs\07\az104-07-vm-template.json** and **\Allfiles\Labs\07\az104-07-vm-parameters.json** into the Cloud Shell home directory.
+4.  In the toolbar of the Cloud Shell pane, click the **Upload/Download files** icon, in the drop-down menu, click **Upload** and upload the files https://github.com/MicrosoftLearning/AZ-104-MicrosoftAzureAdministrator/tree/master/Allfiles/Labs/07/az104-07-vm-template.json** and https://github.com/MicrosoftLearning/AZ-104-MicrosoftAzureAdministrator/tree/master/Allfiles/Labs/07/az104-07-vm-parameters.json** into the Cloud Shell home directory.
 
 5.  Edit the **Parameters** file you just uploaded and change the password. If you need help editing the file in the Shell please ask your instructor for assistance. As a best practice, secrets, like passwords, should be more securely stored in the Key Vault.
 
@@ -105,7 +105,7 @@ In this task, you will create a blob container and upload a blob into it.
 
 3.  In the list of containers, click **az104-07-container** and then click **Upload**.
 
-4.  Browse to **\Allfiles\Labs\07\LICENSE** on your lab computer and click **Open**.
+4.  Browse to https://github.com/MicrosoftLearning/AZ-104-MicrosoftAzureAdministrator/tree/master/Allfiles/Labs/07/LICENSE** on your lab computer and click **Open**.
 
 5.  On the **Upload blob** blade, expand the **Advanced** section and specify the following settings (leave others with their default values):
 
