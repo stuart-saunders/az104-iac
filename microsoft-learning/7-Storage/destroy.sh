@@ -1,3 +1,3 @@
-terraform destroy --auto-approve
+# terraform destroy --auto-approve
 rm -rf .terraform*
 rm -rf terraform.tfstate*
