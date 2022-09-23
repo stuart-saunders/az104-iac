@@ -57,7 +57,8 @@
 # }
 
 resource "azurerm_storage_account" "this" {
-  name                     = "az104msllab8${formatdate("DDMMhhmm", timestamp())}"
+  # name                     = "az104msllab8${formatdate("DDMM", timestamp())}"
+  name                     = "az104msllab815061204"
   resource_group_name      = azurerm_resource_group.this[local.resource_groups[0]].name
   location                 = azurerm_resource_group.this[local.resource_groups[0]].location
   account_tier             = "Standard"

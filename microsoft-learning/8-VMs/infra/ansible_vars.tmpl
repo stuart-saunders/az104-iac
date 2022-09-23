@@ -1,0 +1,5 @@
+%{ for vm in vms ~}
+${ vm.name }:
+    admin_username: ${ vm.admin_username }
+    admin_password: ${ vm.admin_password }
+%{ endfor ~}

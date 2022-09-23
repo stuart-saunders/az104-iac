@@ -6,6 +6,10 @@ output "name" {
   value = azurerm_windows_virtual_machine.this.name
 }
 
+output "resource_group_name" {
+  value = azurerm_windows_virtual_machine.this.resource_group_name
+}
+
 output "admin_username" {
   value = azurerm_windows_virtual_machine.this.admin_username
 }

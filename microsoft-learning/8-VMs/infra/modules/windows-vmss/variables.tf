@@ -79,6 +79,12 @@ variable "zones" {
   default = [ 1 ]
 }
 
+variable "upgrade_mode" {
+  type = string
+  description = "Specifies how Upgrades (e.g. changing the Image/SKU) should be performed to Virtual Machine Instances. Possible values are Automatic, Manual and Rolling"
+  default = "Automatic"
+}
+
 variable "boot_diagnostics_storage_account_uri" {
     type = string
     description = "The endpoint of the Storage Account used for boot diagnostics"
@@ -148,6 +154,17 @@ variable "nsg_rules" {
   description = "The Security Rules to add to the NSG"
   default = [
     {
+      name                       = "rdp"
+      priority                   = 1000
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = "3389"
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+    },
+    {
       name                       = "http"
       priority                   = 1010
       direction                  = "Inbound"
@@ -159,4 +176,19 @@ variable "nsg_rules" {
       destination_address_prefix = "*"
     }
   ]
+}
+
+//Load Balancer
+variable "lb_frontend_ip_config_name" {
+  type = string
+  default = "lb-frontend"
+}
+
+//VMSS Extension
+variable "vmss_extension_file_uri" {
+  type = string
+}
+
+variable "vmss_extension_file_name" {
+  type = string
 }
