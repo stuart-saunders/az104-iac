@@ -1,0 +1,363 @@
+# resource "azurerm_resource_group" "this" {
+#   name     = "${var.resource_name_prefix}-rg"
+#   location = var.location
+# }
+
+# locals {
+#   # subnets = {}
+#   #   subnet0 = "10.40.0.0/24"
+#   #   subnet1 = "10.40.1.0/24"
+#   # }
+#   subnets = ["10.40.0.0/24", "10.40.1.0/24"]
+#   value = {
+#       for i, v in local.subnets :
+#         i => ({ 
+#           "name" = "subnet${i}",
+#           "cidr" = v
+#         })
+#     }
+# }
+
+# locals {
+#   peerings = {
+#     "0and1" = ["vnet0", "vnet1"]
+#   }
+
+#   peeringsMap = { for k, v in local.peerings :
+#     k => {
+#       first = v[0]
+#       second = v[1]
+#     }
+#   }
+# }
+
+# resource "null_resource" "subnets" {
+#   # for_each = local.subnets
+#   for_each = { for i, v in local.subnets : i => { i, v } }
+  
+#   triggers = {
+#     name = "subnet${each.key}"
+#     cidr = each.value
+#   }
+# }
+
+# resource "null_resource" "strings" {
+#   for_each = [ for s in toset(local.stringList) : upper(s) ]
+# }
+
+# resource "null_resource" "vms" {
+#   for_each = null_resource.subnets
+
+#   triggers = {
+#     name = each.key
+#     cidr = each.value
+#   }
+# }
+
+# output "value" {
+
+#     # value = {
+#     #   for i, v in local.subnets :
+#     #     i => ({ 
+#     #       "name" = "subnet${i}",
+#     #       "cidr" = v
+#     #     })
+#     # }
+
+#     value = local.value
+
+#     #value = null_resource.strings
+#     # value = [ for s in local.stringList : upper(s) ]
+# }
+
+
+locals {
+  vnets = {
+      vnet0 = {
+        address_space = "10.50.0.0/22"
+        location      = "uksouth"
+      }
+      vnet1 = {
+        address_space = "10.51.0.0/22"
+        location      = "uksouth"
+      }
+      vnet2 = {
+        address_space = "10.52.0.0/22"
+        location      = "ukwest"
+      }
+  }
+
+  subnets = {
+      vnet0_subnet = {
+        subnet_name   = "subnet0"
+        address_space = "10.50.0.0/24"
+        vnet_name     = "vnet0"
+        vm_name       = "vm0"
+      }
+      vnet1_subnet = {
+        subnet_name   = "subnet1"
+        address_space = "10.51.0.0/24"
+        vnet_name     = "vnet1"
+        vm_name       = "vm1"
+      }
+      vnet2_subnet = {
+        subnet_name   = "subnet0"
+        address_space = "10.52.0.0/24"
+        vnet_name     = "vnet2"
+        vm_name       = "vm2"
+      }
+  }
+
+  # vms = {
+  #     vm0 = {
+  #         subnet_name = "vnet0_subnet"
+  #     }
+  #     vm1 = {
+  #         subnet_name = "vnet1_subnet"
+  #     }
+  #     vm2 = {
+  #         subnet_name = "vnet2_subnet"
+  #     }
+  # }
+
+  vms = [
+      {
+        vm_name = "vm0"
+        subnet_name = "vnet0_subnet"
+      },
+      {
+        vm_name = "vm1"
+        subnet_name = "vnet1_subnet"
+      },
+      {
+        vm_name = "vm2"
+        subnet_name = "vnet2_subnet"
+      }
+  ]
+
+  vmMap = { for vm_key, vm_value in local.vms :
+    vm_key => { for subnet_key, subnet_value in local.subnets : 
+        subnet_key => {
+            vnet = subnet_value.vnet_name
+        }
+        if subnet_key == vm_value.subnet_name
+    }
+  }
+
+  vmMap2 = { for vm_key, vm_value in local.vms :
+    vm_key => { for subnet_key, subnet_value in local.subnets : 
+      subnet_key => { for vnet_key, vnet_value in local.vnets :
+        vnet_key => { 
+          region = vnet_value.location
+        }
+        if vnet_key == subnet_value.vnet_name
+      }
+      if subnet_key == vm_value.subnet_name
+    }
+  }
+
+  # vmTest2 = { for vm_key, vm_value in local.vms :
+  #   vm_key => { for subnet_key, subnet_value in local.subnets : 
+  #     subnet_key => { for vnet_key, vnet_value in local.vnets :
+  #       vnet_key => {
+  #         location = vnet_value.location
+  #       }
+  #       if vnet_key == subnet_value.vnet_name
+  #     }
+  #     if subnet_key == vm_value.subnet_name
+  #   }
+  # }
+
+  vmTest = { for vm_key, vm_value in local.vms :
+    vm_key => flatten([ 
+      for subnet_key, subnet_value in local.subnets : 
+        [
+          for vnet_key, vnet_value in local.vnets :
+          {
+            vnet = subnet_value.vnet_name
+            location = vnet_value.location
+            subnet = subnet_value.subnet_name
+          }
+          if vnet_key == subnet_value.vnet_name
+        ]
+        if subnet_key == vm_value.subnet_name
+    ])
+  }
+
+  vmTest2 = { for vm_key, vm_value in local.vms :
+    vm_value.vm_name => flatten([ 
+      for subnet_key, subnet_value in local.subnets : 
+        flatten([
+          for vnet_key, vnet_value in local.vnets :
+          {
+            vnet = subnet_value.vnet_name
+            location = vnet_value.location
+            subnet = subnet_value.subnet_name
+            # vm = vm_value.vm_name
+          }
+          if vnet_key == subnet_value.vnet_name
+        ])
+        if subnet_key == vm_value.subnet_name
+    ])
+  }
+
+  vmTest3 = flatten([ for vm_key, vm_value in local.vms :
+    flatten([ 
+      for subnet_key, subnet_value in local.subnets : 
+        [
+          for vnet_key, vnet_value in local.vnets :
+          {
+            vnet = subnet_value.vnet_name
+            location = vnet_value.location
+            subnet = subnet_value.subnet_name
+          }
+          if vnet_key == subnet_value.vnet_name
+        ]
+        if subnet_key == vm_value.subnet_name
+    ])
+  ])
+
+  vmTest4 = { for vm_key, vm_value in local.vms :
+    vm_value.vm_name => { for subnet_key, subnet_value in local.subnets : 
+        "subnet" => { for vnet_key, vnet_value in local.vnets :
+          "vnet" => {
+            # vnet = subnet_value.vnet_name
+            location = vnet_value.location
+            subnet = subnet_value.subnet_name
+            # vm = vm_value.vm_name
+          }
+          if vnet_key == subnet_value.vnet_name
+        }
+        if subnet_key == vm_value.subnet_name
+    }
+  }
+
+  vmTest5 = { for vm_key, vm_value in local.vms :
+    vm_value.vm_name => { for subnet_key, subnet_value in local.subnets : 
+        "subnet" => { for vnet_key, vnet_value in local.vnets :
+          "vnet" => {
+            vnet = subnet_value.vnet_name
+            location = vnet_value.location
+            subnet = subnet_value.subnet_name
+            # vm = vm_value.vm_name
+          }
+          if vnet_key == subnet_value.vnet_name
+        }
+        if subnet_key == vm_value.subnet_name
+    }
+  }
+
+  # vmTest6 = merge([
+  #   for vm_key, vm_value in local.vms :
+  #   { for subnet_key, subnet_value in vm_value :
+  #     vnet_key => { for vnet_key, vnet_value in subnet_value.vnet :
+  #       vm_key => {
+  #         vnet = vnet_value.vnet
+  #         subnet = vnet_value.subnet
+  #         location = vnet_value.location
+  #       }
+  #     }
+  #       # subnet_key => {
+  #       #     location = vnet_value.location
+  #       #   }
+  #   }
+  # ])
+  
+
+  vmTest7 = flatten(
+    [ for vm_key, vm_value in local.vms :
+      [ for subnet_key, subnet_value in local.subnets : 
+        { for vnet_key, vnet_value in local.vnets :
+          vm_value.vm_name => {
+            vnet = subnet_value.vnet_name
+            location = vnet_value.location
+            subnet = subnet_value.subnet_name
+            vm = vm_value.vm_name
+          }
+          if vnet_key == subnet_value.vnet_name
+        }
+        if subnet_key == vm_value.subnet_name
+     ]
+    ]
+  )
+
+
+  # vmTest2 = { for vm_key, vm_value in local.vms :
+  #   vm_key => { for subnet_key, subnet_value in local.subnets : 
+  #     subnet_key => { for vnet_key, vnet_value in local.vnets :
+  #       vnet_key => {
+  #         location = vnet_value.location
+  #       }
+  #       if vnet_key == subnet_value.vnet_name
+  #     }
+  #     if subnet_key == vm_value.subnet_name
+  #   }
+  # }
+
+  
+
+
+  peerings = {
+    "0and1" = ["vnet0", "vnet1"]
+    "0and2" = ["vnet0", "vnet2"]
+    "1and2" = ["vnet1", "vnet2"]
+  }
+
+  peeringsMap = { for k, v in local.peerings :
+    k => {
+      first = v[0]
+      second = v[1]
+    }
+  }
+}
+
+
+
+# output "peerings" {
+#   # value = { 
+#   #   for k, v in local.peeringsMap : 
+#   #     k => { 
+#   #       first = v[0] 
+#   #       second = v[1]
+#   #     }
+#   # }
+#   value = local.peeringsMap
+# }
+
+# output "vms" {
+#   value = local.vmMap
+
+# }
+
+output "vms" {
+  value = local.vmTest2
+}
+
+
+############################################
+
+
+
+# locals {
+#   vnets = [
+#     {
+#       name = "vnet0"
+#       address_space = "10.50.0.0/22"
+#       location      = "uksouth"
+#     },
+#     {
+#       name = "vnet1"
+#       address_space = "10.51.0.0/22"
+#       location      = "uksouth"
+#     },
+#     {
+#       name = "vnet2"
+#       address_space = "10.52.0.0/22"
+#       location      = "ukwest"
+#     }
+#   ]
+# }
+
+# output "vnets" {
+#   value = local.vnets
+# }
